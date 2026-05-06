@@ -1,0 +1,9 @@
+{
+  "name": "@repo/load-tests",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "test:smoke:signin": "k6 run scripts/auth-signin.js",
+    "test:smoke:signup": "k6 run scripts/auth-signup.js"
+  }
+}

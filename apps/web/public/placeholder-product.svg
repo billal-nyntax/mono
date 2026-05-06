@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400" fill="none">
+  <rect width="400" height="400" fill="#F3F4F6"/>
+  <path d="M200 140c-16.569 0-30 13.431-30 30v10h-10c-5.523 0-10 4.477-10 10v60c0 5.523 4.477 10 10 10h80c5.523 0 10-4.477 10-10v-60c0-5.523-4.477-10-10-10h-10v-10c0-16.569-13.431-30-30-30zm0 12c9.941 0 18 8.059 18 18v10h-36v-10c0-9.941 8.059-18 18-18zm-40 40h80v60h-80v-60z" fill="#D1D5DB"/>
+  <text x="200" y="310" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#9CA3AF">No Image</text>
+</svg>

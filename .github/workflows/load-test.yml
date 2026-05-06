@@ -1,0 +1,49 @@
+name: Load Test
+
+on:
+  schedule:
+    - cron: "0 2 * * 1"
+  workflow_dispatch: {}
+
+jobs:
+  k6:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: loadtest_db
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: grafana/setup-k6-action@v1
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @repo/database db:generate
+      - run: pnpm --filter @repo/api build
+      - name: Start API server
+        run: |
+          pnpm --filter @repo/api start:prod &
+          sleep 5
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/loadtest_db
+          JWT_SECRET: loadtest-secret
+          PORT: "4000"
+      - name: Run k6 smoke test
+        run: k6 run load-tests/scripts/auth-signin.js
+        env:
+          API_URL: http://localhost:4000

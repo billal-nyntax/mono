@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-gray-200 dark:border-gray-700;
+  }
+
+  body {
+    @apply bg-gray-50 text-gray-900 antialiased dark:bg-gray-950 dark:text-gray-100;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-gray-300 dark:bg-gray-700;
+  }
+}
+
+@layer components {
+  .card {
+    @apply w-full rounded-xl border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-gray-900;
+  }
+
+  .table-container {
+    @apply card overflow-hidden flex flex-col min-h-0;
+    flex: 1 1 0;
+    min-height: 200px;
+  }
+
+  .table-container .table-scroll {
+    @apply overflow-y-auto overflow-x-auto flex-1;
+  }
+
+  .table-container .table-scroll::-webkit-scrollbar {
+    @apply w-1.5 h-1.5;
+  }
+
+  .table-container .table-scroll::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-gray-200 dark:bg-gray-700;
+  }
+
+  .table-container .table-scroll::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-300 dark:bg-gray-600;
+  }
+
+  .table-container thead {
+    @apply sticky top-0 z-10;
+  }
+
+  .table-container table {
+    @apply w-full;
+  }
+}
+
+/* Responsive: horizontal scroll on small screens for wide tables */
+@media (max-width: 768px) {
+  .table-container table {
+    min-width: 640px;
+  }
+}
+
+/* Responsive: compact padding on small screens */
+@media (max-width: 640px) {
+  .table-container td,
+  .table-container th {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+}
+
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .print\:hidden {
+    display: none !important;
+  }
+
+  aside, header, nav {
+    display: none !important;
+  }
+
+  main {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .dark\:bg-gray-900,
+  .dark\:bg-gray-800,
+  .dark\:bg-gray-950 {
+    background: white !important;
+  }
+
+  .dark\:text-white,
+  .dark\:text-gray-100,
+  .dark\:text-gray-300 {
+    color: black !important;
+  }
+}
